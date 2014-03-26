@@ -1,26 +1,24 @@
 package org.hanrunfan.master.util;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.Writer;
 
 public class FileUtil {
 	/**
-	 * @param sourcePath 例如：/repository-raw.txt
-	 * @param targetPath 例如：/repository.txt
+	 * @param sourcePath 例如：C:\Users\hanrunfan\git\toy\master\src\main\resource\repository-raw.txt
+	 * @param targetName 例如：repository.txt
 	 */
-	public static void disposeRawFile(String sourceName,String targetName) {
-		String sourcePath = File.separator + sourceName;
-		String targetAbsolutePath = FileUtil.class.getResource(sourcePath).getPath().replace(sourceName, targetName);
+	public static void disposeRawFile(String sourcePath,String targetName) {
 		StringBuffer targetString = new StringBuffer();
 		Reader reader = null;
 		Writer writer = null;
 		int readedChar;
 		try {
-			reader = new InputStreamReader(FileUtil.class.getResourceAsStream(sourcePath));
+			reader = new FileReader(new File(sourcePath));
 			while((readedChar = reader.read())!=-1){
 				if(readedChar==10||readedChar==13){
 					targetString.append("");
@@ -30,7 +28,7 @@ public class FileUtil {
 					targetString.append((char)readedChar);
 				}
 			}
-			File targetFile = new File(targetAbsolutePath);
+			File targetFile = new File(targetName);
 			if(!targetFile.exists()){
 				targetFile.createNewFile();
 			}
