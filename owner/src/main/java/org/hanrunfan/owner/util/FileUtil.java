@@ -60,7 +60,9 @@ public class FileUtil {
 		try {
 			char[] chars = new char[1024];
 			while((reader.read(chars))!=-1){
-				sb.append(chars);
+				String s1 = new String(chars);
+				String s2 = new String(s1.getBytes(),"UTF-8");
+				sb.append(s2);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
