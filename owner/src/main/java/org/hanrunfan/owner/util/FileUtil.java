@@ -1,9 +1,12 @@
 package org.hanrunfan.owner.util;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.Writer;
 
@@ -55,14 +58,16 @@ public class FileUtil {
 		}
 	}
 	
-	public static String read(Reader reader) {
+
+
+	public static String read(InputStream inputStream) {
 		StringBuffer sb = new StringBuffer();
 		try {
+			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"UTF-8"));
 			char[] chars = new char[1024];
-			while((reader.read(chars))!=-1){
-				String s1 = new String(chars);
-				String s2 = new String(s1.getBytes(),"UTF-8");
-				sb.append(s2);
+			int readedSize = 0;
+			while((readedSize = bufferedReader.read(chars))!=-1){
+				sb.append(chars,0,readedSize);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -70,6 +75,23 @@ public class FileUtil {
 		}
 		return sb.toString();
 	}
+	
+	public static String read1(InputStream inputStream) {
+		StringBuffer sb = new StringBuffer();
+		try {
+			byte[] bytes = new byte[1024];
+			while((inputStream.read(bytes))!=-1){
+				String string = new String(bytes,"UTF-8");
+				sb.append(string);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			sb = new StringBuffer();
+		}
+		return sb.toString();
+	}
+
+	
 	
 	
 }

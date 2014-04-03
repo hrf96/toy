@@ -11,11 +11,15 @@ import org.hanrunfan.owner.service.WordService;
 public class TxtWordServiceImpl implements WordService {
 	@Resource
 	private WordDAO wordDAO; 
-	public String getWordRamdom() {
+	public String getWordRandom() {
 		List<String> wordList = wordDAO.list();
 		Random random = new Random();
 		int index = random.nextInt(wordList.size());
 		return wordList.get(index);
+	}
+	
+	public List<String> listAll(){
+		return wordDAO.list();
 	}
 
 }

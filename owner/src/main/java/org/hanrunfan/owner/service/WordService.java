@@ -1,5 +1,8 @@
 package org.hanrunfan.owner.service;
 
+import java.util.List;
+
 public interface WordService {
-	public String getWordRamdom();
+	public String getWordRandom();
+	public List<String> listAll();
 }
